@@ -31,7 +31,7 @@ class Dashboard extends Component
         $this->totalBarangMasukBulanIni = DB::table('stock_barangs')
             ->whereYear('created_at', $tahun)
             ->whereMonth('created_at', $bulan)
-            ->sum('harga_total');
+            ->sum('kuantitas');
 
         // 2. Total stok barang (jumlah data barang yang pernah masuk)
         $this->totalStokBarang = StockBarang::count();

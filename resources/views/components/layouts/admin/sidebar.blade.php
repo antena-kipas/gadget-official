@@ -3,6 +3,7 @@
 
 <head>
     @include('partials.head')
+    @livewireStyles
 </head>
 
 <body class="min-h-screen bg-white dark:bg-gray-900">
@@ -48,9 +49,9 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('admin.product.index') }}"
+                    <a href="{{ route('admin.barang.index') }}"
                         class="flex items-center p-2 rounded-lg group
-                           {{ request()->routeIs('admin.product.index') || request()->routeIs('admin.product.*')
+                           {{ request()->routeIs('admin.barang.index') || request()->routeIs('admin.barang.*')
                                ? 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white'
                                : 'text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                         <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white {{ request()->routeIs('admin.products.index') || request()->routeIs('admin.products.*') ? 'text-gray-900 dark:text-white' : '' }}"
@@ -62,9 +63,9 @@
                         <span class="flex-1 ms-3 whitespace-nowrap">Kelola Barang</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('admin.sale') }}"
-                        class="flex items-center p-2 rounded-lg group {{ request()->routeIs('admin.sale') || request()->routeIs('admin.sale')
+                <!-- <li>
+                    <a href=""
+                        class="flex items-center p-2 rounded-lg group {{ request()->routeIs('admin.barangs') || request()->routeIs('admin.barangs')
                             ? 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white'
                             : 'text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                         <svg class="shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -74,28 +75,11 @@
                                 d="M20.29 8.567c.133.323.334.613.59.85v.002a3.536 3.536 0 0 1 0 5.166 2.442 2.442 0 0 0-.776 1.868 3.534 3.534 0 0 1-3.651 3.653 2.483 2.483 0 0 0-1.87.776 3.537 3.537 0 0 1-5.164 0 2.44 2.44 0 0 0-1.87-.776 3.533 3.533 0 0 1-3.653-3.654 2.44 2.44 0 0 0-.775-1.868 3.537 3.537 0 0 1 0-5.166 2.44 2.44 0 0 0 .775-1.87 3.55 3.55 0 0 1 1.033-2.62 3.594 3.594 0 0 1 2.62-1.032 2.401 2.401 0 0 0 1.87-.775 3.535 3.535 0 0 1 5.165 0 2.444 2.444 0 0 0 1.869.775 3.532 3.532 0 0 1 3.652 3.652c-.012.35.051.697.184 1.02ZM9.927 7.371a1 1 0 1 0 0 2h.01a1 1 0 0 0 0-2h-.01Zm5.889 2.226a1 1 0 0 0-1.414-1.415L8.184 14.4a1 1 0 0 0 1.414 1.414l6.218-6.217Zm-2.79 5.028a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01Z"
                                 clip-rule="evenodd" />
                         </svg>
-                        <span class="flex-1 ms-3 whitespace-nowrap">Data barang</span>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Data barang & Toko</span>
                     </a>
-                </li>
+                </li> -->
                 <li>
-                    <a href="{{ route('admin.order') }}"
-                        class="flex items-center p-2 rounded-lg group {{ request()->routeIs('admin.order') || request()->routeIs('admin.order')
-                            ? 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white'
-                            : 'text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-                        <svg class="shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path fill-rule="evenodd"
-                                d="M5.024 3.783A1 1 0 0 1 6 3h12a1 1 0 0 1 .976.783L20.802 12h-4.244a1.99 1.99 0 0 0-1.824 1.205 2.978 2.978 0 0 1-5.468 0A1.991 1.991 0 0 0 7.442 12H3.198l1.826-8.217ZM3 14v5a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5h-4.43a4.978 4.978 0 0 1-9.14 0H3Z"
-                                clip-rule="evenodd" />
-                        </svg>
-
-
-                        <span class="flex-1 ms-3 whitespace-nowrap">Inventori barang</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.credit') }}"
+                    <a href="{{ route('admin.hutang') }}"
                         class="flex items-center p-2 rounded-lg group {{ request()->routeIs('admin.credit') || request()->routeIs('admin.credit')
                             ? 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white'
                             : 'text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
@@ -112,31 +96,9 @@
 
 
 
-                        <span class="flex-1 ms-3 whitespace-nowrap">Tagihan Kredit</span>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Hutang</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('admin.recap') }}"
-                        class="flex items-center p-2 rounded-lg group {{ request()->routeIs('admin.recap') || request()->routeIs('admin.recap')
-                            ? 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white'
-                            : 'text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                            class="shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
-                            <path fill-rule="evenodd"
-                                d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z"
-                                clip-rule="evenodd" />
-                            <path fill-rule="evenodd"
-                                d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375ZM6 12a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V12Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 15a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V15Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 18a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V18Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75Z"
-                                clip-rule="evenodd" />
-                        </svg>
-
-
-
-
-                        <span class="flex-1 ms-3 whitespace-nowrap">Rekapitulasi</span>
-                    </a>
-                </li>
-
             </ul>
 
             {{-- Bagian Profil Pengguna dan Logout (Dropdown) di paling bawah --}}
@@ -216,6 +178,8 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    @livewireScripts
+
 </body>
 
 </html>

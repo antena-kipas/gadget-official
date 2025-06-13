@@ -13,7 +13,7 @@
             {
                 Schema::create('stock_barangs', function (Blueprint $table) {
                     $table->id(); // ID primary key otomatis
-                    $table->string('uniq_key', 7)->unique(); // UniqKey barang 7 karakter
+                    $table->string('uniq_key', 7); // UniqKey barang 7 karakter
                     $table->decimal('harga_per_satu', 15, 2); // HargaBarangPerSatu
                     $table->decimal('harga_total', 15, 2);    // HargaBarangTotal
                     $table->integer('kuantitas');             // KuantitasBarang

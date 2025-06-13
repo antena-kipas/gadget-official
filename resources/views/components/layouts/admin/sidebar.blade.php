@@ -24,7 +24,7 @@
         {{-- Kontainer utama sidebar dibuat flex column untuk mendorong profil ke bawah --}}
         <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800 flex flex-col">
             <a href="{{ route('admin.dashboard') }}" class="flex items-center ps-2.5 mb-5">
-                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Gadget Official</span>
+                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Tokopipin</span>
             </a>
 
             {{-- Menu Utama --}}
@@ -59,7 +59,7 @@
                             <path
                                 d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z" />
                         </svg>
-                        <span class="flex-1 ms-3 whitespace-nowrap">Produk</span>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Kelola Barang</span>
                     </a>
                 </li>
                 <li>
@@ -74,7 +74,7 @@
                                 d="M20.29 8.567c.133.323.334.613.59.85v.002a3.536 3.536 0 0 1 0 5.166 2.442 2.442 0 0 0-.776 1.868 3.534 3.534 0 0 1-3.651 3.653 2.483 2.483 0 0 0-1.87.776 3.537 3.537 0 0 1-5.164 0 2.44 2.44 0 0 0-1.87-.776 3.533 3.533 0 0 1-3.653-3.654 2.44 2.44 0 0 0-.775-1.868 3.537 3.537 0 0 1 0-5.166 2.44 2.44 0 0 0 .775-1.87 3.55 3.55 0 0 1 1.033-2.62 3.594 3.594 0 0 1 2.62-1.032 2.401 2.401 0 0 0 1.87-.775 3.535 3.535 0 0 1 5.165 0 2.444 2.444 0 0 0 1.869.775 3.532 3.532 0 0 1 3.652 3.652c-.012.35.051.697.184 1.02ZM9.927 7.371a1 1 0 1 0 0 2h.01a1 1 0 0 0 0-2h-.01Zm5.889 2.226a1 1 0 0 0-1.414-1.415L8.184 14.4a1 1 0 0 0 1.414 1.414l6.218-6.217Zm-2.79 5.028a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01Z"
                                 clip-rule="evenodd" />
                         </svg>
-                        <span class="flex-1 ms-3 whitespace-nowrap">Penjualan</span>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Data barang</span>
                     </a>
                 </li>
                 <li>
@@ -91,24 +91,7 @@
                         </svg>
 
 
-                        <span class="flex-1 ms-3 whitespace-nowrap">Pesanan</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.retur') }}"
-                        class="flex items-center p-2 rounded-lg group {{ request()->routeIs('admin.retur') || request()->routeIs('admin.retur')
-                            ? 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white'
-                            : 'text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                            class="shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
-                            <path fill-rule="evenodd"
-                                d="M12 1.5c-1.921 0-3.816.111-5.68.327-1.497.174-2.57 1.46-2.57 2.93V21.75a.75.75 0 0 0 1.029.696l3.471-1.388 3.472 1.388a.75.75 0 0 0 .556 0l3.472-1.388 3.471 1.388a.75.75 0 0 0 1.029-.696V4.757c0-1.47-1.073-2.756-2.57-2.93A49.255 49.255 0 0 0 12 1.5Zm-.97 6.53a.75.75 0 1 0-1.06-1.06L7.72 9.22a.75.75 0 0 0 0 1.06l2.25 2.25a.75.75 0 1 0 1.06-1.06l-.97-.97h3.065a1.875 1.875 0 0 1 0 3.75H12a.75.75 0 0 0 0 1.5h1.125a3.375 3.375 0 1 0 0-6.75h-3.064l.97-.97Z"
-                                clip-rule="evenodd" />
-                        </svg>
-
-
-
-                        <span class="flex-1 ms-3 whitespace-nowrap">Retur</span>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Inventori barang</span>
                     </a>
                 </li>
                 <li>

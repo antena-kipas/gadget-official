@@ -5,7 +5,7 @@
             {{-- Badge 1: Total Penjualan Produk (Tema Hijau) --}}
             <div class="bg-green-500 dark:bg-gray-800 p-5 sm:p-6 rounded-xl shadow-lg flex flex-col">
                 <div class="flex items-center justify-between text-green-100 dark:text-green-300 mb-2">
-                    <h3 class="text-sm font-medium uppercase tracking-wider">Total Penjualan (Bulan Ini)</h3>
+                    <h3 class="text-sm font-medium uppercase tracking-wider">Total Barang Bulan Ini</h3>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-7 h-7">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -13,7 +13,7 @@
                     </svg>
                 </div>
                 <p class="text-2xl sm:text-3xl font-bold text-white dark:text-white mb-1">
-                    Rp {{ number_format($totalMonthlySales, 0, ',', '.') }}
+                     {{ number_format($totalBarangMasukBulanIni, 0, ',', '.') }}
                 </p>
                 {{-- <p class="text-xs text-green-50 dark:text-green-400 opacity-80">+5.2% dari bulan lalu</p> --}}
             </div>
@@ -21,7 +21,7 @@
             {{-- Badge 2: Total Produk (Tema Ungu) --}}
             <div class="bg-purple-500 dark:bg-gray-800 p-5 sm:p-6 rounded-xl shadow-lg flex flex-col">
                 <div class="flex items-center justify-between text-purple-100 dark:text-purple-300 mb-2">
-                    <h3 class="text-sm font-medium uppercase tracking-wider">Total Produk</h3>
+                    <h3 class="text-sm font-medium uppercase tracking-wider">Total Barang</h3>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-7 h-7">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -29,15 +29,15 @@
                     </svg>
                 </div>
                 <p class="text-2xl sm:text-3xl font-bold text-white dark:text-white mb-1">
-                    {{ number_format($totalProducts, 0, ',', '.') }} Produk
+                    {{ number_format($totalStokBarang, 0, ',', '.') }} Barang
                 </p>
-                {{-- <p class="text-xs text-purple-50 dark:text-purple-400 opacity-80">Aktif di Gadget Official</p> --}}
+                {{-- <p class="text-xs text-purple-50 dark:text-purple-400 opacity-80">Aktif di Tokopipin</p> --}}
             </div>
 
             {{-- Badge 3: Total Transaksi (Tema Biru Indigo) --}}
             <div class="bg-indigo-500 dark:bg-gray-800 p-5 sm:p-6 rounded-xl shadow-lg flex flex-col">
                 <div class="flex items-center justify-between text-indigo-100 dark:text-indigo-300 mb-2">
-                    <h3 class="text-sm font-medium uppercase tracking-wider">Total Transaksi (Bulan Ini)</h3>
+                    <h3 class="text-sm font-medium uppercase tracking-wider">Total Barang Masuk Bulan Ini</h3>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-7 h-7">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -45,7 +45,7 @@
                     </svg>
                 </div>
                 <p class="text-2xl sm:text-3xl font-bold text-white dark:text-white mb-1">
-                    {{ number_format($totalMonthlyTransactions, 0, ',', '.') }} Transaksi
+                    {{ number_format($jumlahTransaksiBarangBulanIni, 0, ',', '.') }} Transaksi
                 </p>
             </div>
 

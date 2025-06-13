@@ -5,10 +5,8 @@
             class="w-full sm:max-w-md md:w-[500px] bg-white p-6 md:py-[50px] md:px-[30px] flex flex-col gap-5 rounded-xl md:rounded-3xl border border-[#E5E5E5] shadow-md">
             @csrf
             <div class="flex justify-center mb-4">
-                <h2 class="font-bold text-black text-2xl sm:text-3xl">Gadget Official</h2>
+                <h1 class="font-bold text-black text-2xl sm:text-3xl">Tokopipin</h1>
             </div>
-            <h1 class="font-bold text-black text-xl sm:text-2xl leading-tight text-center sm:text-left">Selamat Datang
-                Kembali</h1>
 
             {{-- General Login Error --}}
             @error('login_failed')
@@ -65,10 +63,6 @@
                     <span wire:loading.remove wire:target="login">Login</span>
                     <span wire:loading wire:target="login">Memproses...</span>
                 </button>
-                <a href="{{ route('register') }}" wire:navigate
-                    class="p-3 sm:p-4 bg-white rounded-full text-center font-semibold border text-black border-[#E5E5E5] hover:bg-gray-50 transition-colors duration-300">
-                    Belum Punya Akun? Daftar
-                </a>
             </div>
         </form>
     </div>

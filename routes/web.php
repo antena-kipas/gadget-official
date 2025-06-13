@@ -21,13 +21,10 @@ use App\Http\Controllers\CreditController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\SaleReportController;
 use App\Livewire\Admin\Recap;
+use App\Livewire\Auth\Login;
 
-Route::get('/', LandingPage::class)->name('home');
-Route::get('/keranjang', Cart::class)->name('cart');
-Route::get('/transaksi', Transaction::class)->name('transaction');
-Route::get('/invoice/{orderId}', [InvoiceController::class, 'streamUserInvoice'])
-    ->name('user.invoice.stream');
-Route::get('/cicilan', Installment::class)->name('installment');
+Route::get('/', Login::class)->name('login');
+
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', Dashboard::class)->name('dashboard');

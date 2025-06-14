@@ -43,20 +43,22 @@ class Index extends Component
         $barangs = StockBarang::query()
             ->when($this->search, function ($query) {
                 $query->where('nama_barang', 'like', '%' . $this->search . '%')
-                    ->orWhere('uniq_key', 'like', '%' . $this->search . '%')
+                    ->orWhere('kodebarang', 'like', '%' . $this->search . '%')
                     ->orWhere('nama_toko_suplier', 'like', '%' . $this->search . '%');
             })
             ->orderBy('created_at', 'desc')
             ->get();
 
-        $hargaJuals = Barang::pluck('harga_jual', 'unique_key');
+        // Hapus pluck dari tabel Barang karena tidak digunakan
+        // $hargaJuals = Barang::pluck('harga_jual', 'unique_key'); ❌ hapus
 
-        $pdf = Pdf::loadView('exports.barang', compact('barangs', 'hargaJuals'))->setPaper('A4', 'landscape');
+        $pdf = Pdf::loadView('exports.barang', compact('barangs'))->setPaper('A4', 'landscape');
 
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->stream();
         }, 'laporan-barang.pdf');
     }
+
 
 
     public function confirmDelete(StockBarang $barang)

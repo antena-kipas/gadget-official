@@ -17,36 +17,44 @@
                 </div>
             @endif
 
-
-
-
             <form wire:submit.prevent="saveProduct" class="space-y-6 bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
                 {{-- Pilih Toko --}}
                 <div>
-                    <label for="toko" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Toko</label>
-                    <select id="toko" wire:model.live="selectedToko""
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                        <option value="">-- Pilih Toko --</option>
-                        @foreach ($tokoOptions as $id => $nama)
-                            <option value="{{ (string) $id }}">{{ $nama }}</option>
-                        @endforeach
-                    </select>
-                    @error('selectedToko') <span class="mt-1 text-xs text-red-500">{{ $message }}</span> @enderror
+                    <label for="nama_toko" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Toko</label>
+                    <input type="text" id="nama_toko" wire:model.live="namaToko"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="Masukkan Nama Toko">
+                    @error('namaToko') <span class="mt-1 text-xs text-red-500">{{ $message }}</span> @enderror
                 </div>
 
-                
-                {{-- Pilih Barang --}}
+      
+                {{-- Input Nama Barang --}}
                 <div>
-                    <label for="barang_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Barang</label>
-                    <select id="barang_id" wire:model.live="selectedBarang" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                        <option value="">-- Pilih Barang --</option>
-                        @foreach ($barangOptions as $id => $nama)
-                            <option value="{{ $id }}">{{ $nama }}</option>
-                        @endforeach
-                    </select>
-                    @error('selectedBarang') <span class="mt-1 text-xs text-red-500">{{ $message }}</span> @enderror
+                    <label for="nama_barang" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Barang</label>
+                    <input type="text" id="nama_barang" wire:model.live="namaBarang"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="Masukkan Nama Barang">
+                    @error('namaBarang') <span class="mt-1 text-xs text-red-500">{{ $message }}</span> @enderror
                 </div>
-                
+
+
+                {{-- Input Harga Beli --}}
+                <div>
+                    <label for="harga_beli" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga Beli</label>
+                    <input type="number" id="harga_beli" wire:model.live="hargaBeli"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="Masukkan Harga Beli">
+                    @error('hargaBeli') <span class="mt-1 text-xs text-red-500">{{ $message }}</span> @enderror
+                </div>
+
+                {{-- Input Harga Jual --}}
+                <div>
+                    <label for="harga_jual" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga Jual</label>
+                    <input type="number" id="harga_jual" wire:model.live="hargaJual"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="Masukkan Harga Jual">
+                    @error('hargaJual') <span class="mt-1 text-xs text-red-500">{{ $message }}</span> @enderror
+                </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {{-- Jenis Pembayaran --}}
@@ -76,14 +84,30 @@
                         @enderror
                     </div>
                     @endif
-                <div>
-                    <label for="stock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stok</label>
-                    <input type="number" id="stock" wire:model.lazy="stock"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Contoh: 100">
-                    @error('stock')
-                        <span class="mt-1 text-xs text-red-500">{{ $message }}</span>
-                    @enderror
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label for="stock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stok</label>
+                        <input type="number" id="stock" wire:model.lazy="stock"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Contoh: 100">
+                        @error('stock')
+                            <span class="mt-1 text-xs text-red-500">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    {{-- Jenis Stock --}}
+                    <div>
+                        <label for="jenis_stock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Stock</label>
+                        <select id="jenisStock" wire:model.defer="jenisStock"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            <option value="">-- Pilih Jenis Stock --</option>
+                            <option value="liter">Liter (L)</option>
+                            <option value="pcs">Pieces (pcs)</option>
+                            <option value="kg">Kilogram (kg)</option>
+                        </select>
+                        @error('jenisStock') <span class="mt-1 text-xs text-red-500">{{ $message }}</span> @enderror
+                    </div>
                 </div>
                 {{-- Tombol Aksi --}}
                 <div class="flex justify-end pt-4">

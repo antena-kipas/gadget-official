@@ -1,8 +1,11 @@
 <?php
+
 namespace App\Livewire\Admin\Barang;
 
 use Livewire\Component;
 use App\Models\StockBarang;
+use App\Models\Hutang as HutangModel;
+ // pastikan modelnya tersedia
 use Livewire\WithPagination;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -16,29 +19,49 @@ class Hutang extends Component
 
     public function render()
     {
-        if (request()->get('export') === 'pdf') {
-            return $this->exportPdf(); // panggil fungsi export langsung
+        // Pindahkan data kredit dari stock_barangs ke tabel hutangs jika belum ada
+        $this->sinkronkanHutang();
+
+        if (request()->query('export') === 'pdf') {
+            return $this->exportPdf();
         }
 
-        $hutangBarangs = StockBarang::where('jenis_pembayaran', 'kredit')
-            ->where('hutang', '>', 0)
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
-
         return view('livewire.admin.barang.hutang', [
-            'hutangBarangs' => $hutangBarangs,
+            'hutangBarangs' => HutangModel::latest()->paginate(10)
         ]);
     }
 
+    private function sinkronkanHutang(): void
+    {
+        // Ambil semua data dari stock_barangs yang jenis_pembayaran kredit
+        $dataKredit = StockBarang::whereRaw('LOWER(jenis_pembayaran) = ?', ['kredit'])->get();
+
+        foreach ($dataKredit as $data) {
+            // Cek apakah data dengan nama_barang dan toko yang sama sudah ada di tabel hutang
+            $sudahAda = HutangModel::where('nama_barang', $data->nama_barang)
+                              ->where('toko', $data->nama_toko_suplier)
+                              ->exists();
+
+            if (! $sudahAda) {
+                $status = $data->status_pembayaran === 'lunas' ? 'lunas' : 'hutang';
+
+                HutangModel::create([
+                    'nama_barang'     => $data->nama_barang,
+                    'toko'            => $data->nama_toko_suplier,
+                    'jenis_pembayaran'=> $data->jenis_pembayaran,
+                    'status' => $status,
+                    'nominal_hutang'  => $data->hutang,
+                ]);
+            }
+        }
+    }
 
     public function exportPdf()
     {
-        $hutangBarangs = StockBarang::where('jenis_pembayaran', 'kredit')
-            ->where('hutang', '>', 0)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $hutangBarangs = HutangModel::latest()->get();
 
-        $pdf = Pdf::loadView('exports.hutang-barang', compact('hutangBarangs'));
+        $pdf = Pdf::loadView('exports.hutang-barang', compact('hutangBarangs'))
+                  ->setPaper('a4', 'landscape');
 
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->stream();

@@ -13,7 +13,8 @@ class StockBarang extends Model
 
     protected $fillable = [
         'nama_barang',           // ✅ tambahkan ini
-        'uniq_key',
+        'kodebarang',
+        'jenis_stok', 
         'harga_per_satu',        // ✅ ganti dari harga_satuan (nama di tabel kamu `harga_per_satu`)
         'harga_total',
         'kuantitas',

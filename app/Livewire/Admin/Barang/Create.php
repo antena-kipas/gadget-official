@@ -2,11 +2,8 @@
 
 namespace App\Livewire\Admin\Barang;
 
-use App\Models\Barang;
 use App\Models\StockBarang;
-use App\Models\TokoSuplier;
 use Livewire\Component;
-use Illuminate\Support\Str;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;
 
@@ -14,21 +11,24 @@ use Livewire\Attributes\Layout;
 #[Title('Tambah Barang')]
 class Create extends Component
 {
-    public $selectedToko = '';
-
-    public $selectedBarang;
-    public $stock;
-    public $tokoOptions = [];
-    public $barangOptions = [];
+    public $namaToko = '';
+    public $namaBarang = '';
+    public $hargaBeli = 0;
+    public $hargaJual = 0;
+    public $stock = 0;
+    public $jenisStock = '';
     public $jenisPembayaran = '';
     public $nominalPembayaran;
 
     protected function rules(): array
     {
         return [
-            'selectedToko' => ['required'],
-            'selectedBarang' => ['required'],
-            'stock' => ['required', 'integer', 'min:0'],
+            'namaToko' => ['required', 'string'],
+            'namaBarang' => ['required', 'string'],
+            'hargaBeli' => ['required', 'numeric', 'min:0'],
+            'hargaJual' => ['required', 'numeric', 'min:0'],
+            'stock' => ['required', 'integer', 'min:1'],
+            'jenisStock' => ['required', 'in:liter,pcs,kg'],
             'jenisPembayaran' => ['required', 'in:tunai,kredit'],
             'nominalPembayaran' => [
                 'nullable',
@@ -43,95 +43,69 @@ class Create extends Component
     }
 
     protected $messages = [
-        'selectedToko.required' => 'Nama toko wajib dipilih.',
-        'selectedBarang.required' => 'Nama barang wajib dipilih.',
+        'namaToko.required' => 'Nama toko wajib diisi.',
+        'namaBarang.required' => 'Nama barang wajib diisi.',
+        'hargaBeli.required' => 'Harga beli wajib diisi.',
+        'hargaJual.required' => 'Harga jual wajib diisi.',
         'stock.required' => 'Stok wajib diisi.',
-        'stock.integer' => 'Stok harus berupa angka bulat.',
+        'jenisStock.required' => 'Jenis stock wajib dipilih.',
         'jenisPembayaran.required' => 'Jenis pembayaran wajib dipilih.',
         'jenisPembayaran.in' => 'Jenis pembayaran tidak valid.',
     ];
 
-    public function mount()
+    private function generateKodeBarang(): string
     {
-        $this->stock = 0;
-        $this->nominalPembayaran = null;
-        $this->jenisPembayaran = '';
-        $this->selectedToko = '';
-        $this->selectedBarang = '';
-        $this->tokoOptions = TokoSuplier::pluck('nama_toko', 'id')->toArray();
+        $last = \App\Models\StockBarang::orderBy('id', 'desc')->first();
+        $nextId = $last ? $last->id + 1 : 1;
+
+        return 'TP' . str_pad($nextId, 5, '0', STR_PAD_LEFT); // hasil: TP00001, TP00002, dst.
     }
 
-
-    public function updatedSelectedToko($value)
-    {
-        logger("selectedToko: " . $value); // log ini penting
-        $toko = TokoSuplier::find($value);
-
-        if ($toko) {
-            logger("Ditemukan: " . $toko->nama_toko);
-            $this->barangOptions = Barang::whereRaw('LOWER(TRIM(nama_toko_suplier)) = ?', [
-                    strtolower(trim($toko->nama_toko))
-                ])
-                ->pluck('nama_barang', 'id')
-                ->toArray();
-        } else {
-            logger("Toko ID $value tidak ditemukan.");
-            $this->barangOptions = [];
-        }
-
-        $this->selectedBarang = null;
-    }
 
     public function saveProduct()
     {
         $validated = $this->validate();
 
-        // Ambil data barang berdasarkan ID yang dipilih
-        $barang = Barang::find($this->selectedBarang);
+        $hargaTotal = $this->hargaBeli * $this->stock;
 
-        if (!$barang) {
-            session()->flash('message', 'Barang tidak ditemukan.');
-            return;
-        }
+        $pembayaran = $this->jenisPembayaran === 'tunai'
+            ? $hargaTotal
+            : ($this->nominalPembayaran ?? 0);
 
-        // Ambil harga beli dari tabel barangs
-        $hargaPerSatu = $barang->harga_beli;
-        $hargaTotal = $hargaPerSatu * $this->stock;
-
-        // Hitung pembayaran
-        if ($this->jenisPembayaran === 'tunai') {
-            $pembayaran = $hargaTotal;
-        } else {
-            $pembayaran = $this->nominalPembayaran ?? 0;
-        }
-
-        // Hitung hutang dan status pembayaran
         $hutang = max($hargaTotal - $pembayaran, 0);
         $statusPembayaran = $hutang > 0 ? 'belum_lunas' : 'lunas';
 
-        // Simpan ke tabel stock_barang
+        
+
+
         StockBarang::create([
-            'nama_barang'        => $barang->nama_barang,
-            'uniq_key'           => $barang->unique_key,
-            'harga_per_satu'     => $hargaPerSatu,
-            'harga_total'        => $hargaTotal,
-            'kuantitas'          => $this->stock,
-            'nama_toko_suplier'  => $barang->nama_toko_suplier,
-            'pembayaran'         => $pembayaran,
-            'jenis_pembayaran'   => $this->jenisPembayaran,
-            'status_pembayaran'  => $statusPembayaran,
-            'hutang'             => $hutang,
+            'nama_barang' => $this->namaBarang,
+            'kodebarang' => $this->generateKodeBarang(),
+            'harga_per_satu' => $this->hargaBeli,
+            'harga_total' => $hargaTotal,
+            'kuantitas' => $this->stock,
+            'jenis_stok' => $this->jenisStock, // ✅ perbaikan di sini
+            'harga_jual_per_barang' => $this->hargaJual,
+            'nama_toko_suplier' => $this->namaToko,
+            'pembayaran' => $pembayaran,
+            'jenis_pembayaran' => $this->jenisPembayaran,
+            'status_pembayaran' => $statusPembayaran,
+            'hutang' => $hutang,
         ]);
+
 
         session()->flash('message', 'Barang berhasil ditambahkan ke stok.');
 
         // Reset form
-        $this->reset(['selectedToko', 'selectedBarang', 'stock', 'jenisPembayaran', 'nominalPembayaran']);
+        $this->reset([
+            'namaToko', 'namaBarang', 'hargaBeli', 'hargaJual', 'stock',
+            'jenisStock', 'jenisPembayaran', 'nominalPembayaran'
+        ]);
+
         $this->stock = 0;
 
         return redirect()->route('admin.barang.index');
     }
-
 
     public function render()
     {

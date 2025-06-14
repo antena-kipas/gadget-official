@@ -17,28 +17,29 @@
             <tr>
                 <th>No</th>
                 <th>Nama Barang</th>
-                <th>Supplier</th>
-                <th>Kuantitas</th>
-                <th>Harga/Satuan</th>
-                <th>Total</th>
-                <th>Jenis Pembayaran</th>
-                <th>Status Pembayaran</th>
+                <th>Kode</th>
+                <th>Toko</th>
+                <th>Harga Beli</th>
+                <th>Stok</th>
+                <th>Pembayaran</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($barangs as $i => $barang)
-                <tr>
-                    <td>{{ $i + 1 }}</td>
-                    <td>{{ $barang->nama_barang }}</td>
-                    <td>{{ $barang->nama_toko_suplier }}</td>
-                    <td>{{ $barang->kuantitas }}</td>
-                    <td>{{ number_format($barang->harga_per_satu) }}</td>
-                    <td>{{ number_format($barang->harga_per_satu * $barang->kuantitas) }}</td>
-                    <td>{{ ucfirst($barang->jenis_pembayaran) }}</td>
-                    <td>{{ ucfirst(str_replace('_', ' ', $barang->status_pembayaran)) }}</td>
-                </tr>
+            @foreach($barangs as $index => $barang)
+            <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $barang->nama_barang }}</td>
+                <td>{{ $barang->kodebarang }}</td>
+                <td>{{ $barang->nama_toko_suplier }}</td>
+                <td>Rp {{ number_format($barang->harga_per_satu, 0, ',', '.') }}</td>
+                <td>{{ $barang->kuantitas }} {{ $barang->jenis_stok }}</td>
+                <td>Rp {{ number_format($barang->pembayaran, 0, ',', '.') }}</td>
+                <td>{{ ucfirst($barang->status_pembayaran) }}</td>
+            </tr>
             @endforeach
         </tbody>
     </table>
+
 </body>
 </html>

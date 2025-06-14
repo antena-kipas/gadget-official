@@ -29,9 +29,9 @@
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $barang->nama_barang }}</td>
-                    <td>{{ $barang->nama_toko_suplier }}</td>
+                    <td>{{ $barang->toko }}</td>
                     <td>{{ ucfirst($barang->jenis_pembayaran) }}</td>
-                    <td>{{ ucfirst($barang->status_pembayaran) }}</td>
+                    <td>{{ ucfirst($barang->status) }}</td>
                     <td>Rp {{ number_format($barang->hutang, 0, ',', '.') }}</td>
                 </tr>
             @endforeach

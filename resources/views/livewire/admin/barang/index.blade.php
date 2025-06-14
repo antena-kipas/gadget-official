@@ -22,17 +22,32 @@
                 class="block w-full p-2.5 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Cari Barang...">
         </div>
+        <div class="mb-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+    {{-- Input Pencarian dengan Ikon --}}
+        <div class="relative w-full sm:w-1/2 md:w-1/3 lg:w-80">
+            <!-- ...input pencarian... -->
+        </div>
 
-        {{-- Tombol Tambah Produk --}}
-        <a href="{{ route('admin.barang.create') }}" {{-- Pastikan route ini ada --}}
-            class="w-full sm:w-auto inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-700 whitespace-nowrap">
-            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                    clip-rule="evenodd"></path>
-            </svg>
-            Tambah Produk Baru
-        </a> 
+        {{-- Tombol Aksi --}}
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+            {{-- Tombol Export PDF --}}
+            <button wire:click="exportPdf"
+                class="px-4 py-2 text-sm text-white bg-red-600 rounded hover:bg-red-700 transition">
+                Export PDF
+            </button>
+
+            {{-- Tombol Tambah Produk --}}
+            <a href="{{ route('admin.barang.create') }}"
+                class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-700 whitespace-nowrap">
+                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                Tambah Produk Baru
+            </a>
+        </div>
+    </div>
     </div>
 
     {{-- Kontainer Tabel --}}
@@ -42,7 +57,7 @@
                 <tr>
                     <th scope="col" class="px-6 py-3 w-16">No</th>
                     <th scope="col" class="px-6 py-3">Nama Barang</th>
-                    <th scope="col" class="px-6 py-3 text-center">Uniq key barang</th>
+                    <th scope="col" class="px-6 py-3 text-center">kode barang</th>
                     <th scope="col" class="px-6 py-3 text-center">Toko  </th>
                     <th scope="col" class="px-6 py-3 text-center">Harga Beli</th>
                     <th scope="col" class="px-6 py-3 text-center">Stok</th>
@@ -63,18 +78,18 @@
                         <td class="px-6 py-4">
                             {{ $barang->nama_barang }}
                         </td>
-                        <td class="px-6 py-4 text-center">
-                            {{ $barang->uniq_key }}
-                        </td>
+                        <td>{{ $barang->kodebarang }}</td>
+
                         <td class="px-6 py-4 text-center">
                             {{ $barang->nama_toko_suplier }}
                         </td>
                         <td class="px-6 py-4 text-center">
                             Rp {{ number_format($barang->harga_per_satu, 0, ',', '.') }}
                         </td>
-                        <td class="px-6 py-4 text-center">
-                            {{ $barang->kuantitas }}
+                        <td class="px-4 py-3 text-sm whitespace-nowrap">
+                            {{ $barang->kuantitas }} {{ $barang->jenis_stok }}
                         </td>
+
                         <td class="px-6 py-4 text-center">
                             Rp {{ number_format($barang->pembayaran, 0, ',', '.') }}
                         </td>
@@ -82,7 +97,15 @@
                             {{ ucfirst($barang->jenis_pembayaran) }}
                         </td>
                         <td class="px-6 py-4 text-center">
-                            {{ ucfirst(str_replace('_', ' ', $barang->status_pembayaran)) }}
+                            @if ($barang->status_pembayaran === 'lunas')
+                                <span class="inline-block px-3 py-1 text-sm font-semibold text-white bg-green-600 rounded-full">
+                                    Lunas
+                                </span>
+                            @else
+                                <span class="inline-block px-3 py-1 text-sm font-semibold text-white bg-red-600 rounded-full">
+                                    Belum Lunas
+                                </span>
+                            @endif
                         </td>
                         <td class="px-6 py-4 text-center">
                             Rp {{ number_format($barang->hutang, 0, ',', '.') }}
@@ -221,12 +244,5 @@
         </div>
     @endif
 
-    <br>
-    <br>
-    <div class="flex justify-end mb-4">
-        <button wire:click="exportPdf"
-            class="inline-block px-4 py-2 text-white bg-red-600 rounded hover:bg-red-700 transition">
-            Export PDF
-        </button>
-    </div>
+
 </div>

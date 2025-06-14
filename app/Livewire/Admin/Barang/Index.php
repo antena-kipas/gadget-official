@@ -89,7 +89,7 @@ class Index extends Component
             ->paginate($this->perPage);
 
         // Ambil harga jual dari tabel Barang
-        $hargaJuals = Barang::pluck('harga_jual', 'unique_key');
+        $hargaJuals = Barang::pluck('harga_jual', 'kodebarang');
 
         return view('livewire.admin.barang.index', [
             'barangs' => $barangs,

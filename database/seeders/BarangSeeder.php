@@ -13,28 +13,28 @@ class BarangSeeder extends Seeder
         $barangs = [
             [
                 'nama_barang' => 'Telor',
-                'unique_key' => Str::upper(Str::random(7)),
+                'kodebarang' => 'TP00001',
                 'harga_beli' => 26000,
                 'harga_jual' => 28000,
                 'nama_toko_suplier' => 'Adi Maja',
             ],
             [
                 'nama_barang' => 'Minyak',
-                'unique_key' => Str::upper(Str::random(7)),
+                'kodebarang' => 'TP00002',
                 'harga_beli' => 16700,
                 'harga_jual' => 18500,
                 'nama_toko_suplier' => 'Toko Pintu 3',
             ],
             [
                 'nama_barang' => 'Beras',
-                'unique_key' => Str::upper(Str::random(7)),
+                'kodebarang' => 'TP00003',
                 'harga_beli' => 12800,
                 'harga_jual' => 14000,
                 'nama_toko_suplier' => 'Toko Sandi',
             ],
             [
                 'nama_barang' => 'GULA',
-                'unique_key' => Str::upper(Str::random(7)),
+                'kodebarang' => 'TP00004',
                 'harga_beli' => 15000,
                 'harga_jual' => 17000,
                 'nama_toko_suplier' => 'Toko Sandi',

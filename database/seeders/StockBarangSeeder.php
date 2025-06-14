@@ -27,7 +27,7 @@ class StockBarangSeeder extends Seeder
 
             DB::table('stock_barangs')->insert([
                 'nama_barang'        => $barang->nama_barang,
-                'uniq_key'           => $barang->unique_key,
+                'kodebarang'         => $barang->kodebarang,
                 'harga_per_satu'     => $harga_per_satu,
                 'kuantitas'          => $kuantitas,
                 'harga_total'        => $harga_total,
